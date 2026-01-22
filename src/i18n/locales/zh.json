@@ -1,0 +1,76 @@
+{
+  "common": {
+    "loading": "加载中...",
+    "add": "添加",
+    "edit": "编辑",
+    "delete": "删除",
+    "save": "保存",
+    "cancel": "取消",
+    "confirm": "确认"
+  },
+  "weather": {
+    "loading": "加载天气中...",
+    "current": "当前",
+    "unavailable": "天气不可用",
+    "noData": "无天气数据",
+    "detectingLocation": "正在获取位置...",
+    "locationDenied": "位置访问被拒绝",
+    "locationUnavailable": "位置不可用",
+    "locationError": "位置错误",
+    "locationNotSupported": "不支持地理位置",
+    "defaultLocation": "默认位置",
+    "humidity": "湿度",
+    "wind": "风速",
+    "pressure": "气压",
+    "feelsLike": "体感温度",
+    "forecast": "5天预报",
+    "codes": {
+      "clear": "晴",
+      "mainlyClear": "主要晴朗",
+      "partlyCloudy": "部分多云",
+      "overcast": "阴",
+      "fog": "雾",
+      "depositingRimeFog": "雾凇",
+      "lightDrizzle": "小雨",
+      "moderateDrizzle": "中雨",
+      "denseDrizzle": "大雨",
+      "slightRain": "小雨",
+      "moderateRain": "中雨",
+      "heavyRain": "大雨",
+      "slightSnow": "小雪",
+      "moderateSnow": "中雪",
+      "heavySnow": "大雪",
+      "slightShowers": "小阵雨",
+      "moderateShowers": "中阵雨",
+      "violentShowers": "强阵雨",
+      "thunderstorm": "雷暴",
+      "thunderstormWithHail": "雷暴伴有冰雹",
+      "thunderstormWithHeavyHail": "雷暴伴有大冰雹",
+      "unknown": "未知"
+    }
+  },
+  "search": {
+    "placeholder": "搜索"
+  },
+  "links": {
+    "loading": "加载链接中...",
+    "addLink": "添加链接",
+    "editLink": "编辑链接",
+    "deleteConfirm": "确定要删除此链接吗？",
+    "name": "名称",
+    "url": "网址",
+    "namePlaceholder": "例如：GitHub",
+    "urlPlaceholder": "https://example.com"
+  },
+  "todos": {
+    "loading": "加载任务中...",
+    "title": "任务",
+    "addPlaceholder": "添加新任务...",
+    "noTasks": "暂无任务"
+  },
+  "language": {
+    "switchTo": "切换到{{lang}}",
+    "zh": "中文",
+    "en": "English"
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "weather": {
+    "loading": "Loading weather...",
+    "current": "Current",
+    "unavailable": "Weather unavailable",
+    "noData": "No weather data",
+    "detectingLocation": "Detecting location...",
+    "locationDenied": "Location access denied",
+    "locationUnavailable": "Position unavailable",
+    "locationError": "Location error",
+    "locationNotSupported": "Geolocation not supported",
+    "defaultLocation": "Default location",
+    "humidity": "Humidity",
+    "wind": "Wind",
+    "pressure": "Pressure",
+    "feelsLike": "Feels like",
+    "forecast": "5-Day Forecast",
+    "codes": {
+      "clear": "Clear",
+      "mainlyClear": "Mainly clear",
+      "partlyCloudy": "Partly cloudy",
+      "overcast": "Overcast",
+      "fog": "Fog",
+      "depositingRimeFog": "Depositing rime fog",
+      "lightDrizzle": "Light drizzle",
+      "moderateDrizzle": "Moderate drizzle",
+      "denseDrizzle": "Dense drizzle",
+      "slightRain": "Slight rain",
+      "moderateRain": "Moderate rain",
+      "heavyRain": "Heavy rain",
+      "slightSnow": "Slight snow",
+      "moderateSnow": "Moderate snow",
+      "heavySnow": "Heavy snow",
+      "slightShowers": "Slight showers",
+      "moderateShowers": "Moderate showers",
+      "violentShowers": "Violent showers",
+      "thunderstorm": "Thunderstorm",
+      "thunderstormWithHail": "Thunderstorm with hail",
+      "thunderstormWithHeavyHail": "Thunderstorm with heavy hail",
+      "unknown": "Unknown"
+    }
+  },
+  "search": {
+    "placeholder": "Search"
+  },
+  "links": {
+    "loading": "Loading links...",
+    "addLink": "Add Link",
+    "editLink": "Edit Link",
+    "deleteConfirm": "Are you sure you want to delete this link?",
+    "name": "Name",
+    "url": "URL",
+    "namePlaceholder": "e.g. GitHub",
+    "urlPlaceholder": "https://example.com"
+  },
+  "todos": {
+    "loading": "Loading tasks...",
+    "title": "Tasks",
+    "addPlaceholder": "Add a new task...",
+    "noTasks": "No tasks yet"
+  },
+  "language": {
+    "switchTo": "Switch to {{lang}}",
+    "zh": "中文",
+    "en": "English"
+  }
+}
