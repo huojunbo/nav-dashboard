@@ -2,7 +2,7 @@
 
 一个功能丰富、现代化的个人导航仪表板应用，集成了时钟、搜索、书签、天气、待办事项和用户认证等实用功能。基于 React 19 + TypeScript + Express + SQLite 构建。
 
-[English](./README.en.md)
+- [English](./README.en.md)
 
 ## ✨ 主要功能
 
