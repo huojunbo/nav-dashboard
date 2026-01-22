@@ -1,6 +1,6 @@
 # 导航仪表板 (Navigation Dashboard)
 
-一个功能丰富、现代化的个人导航仪表板应用，集成了时钟、搜索、书签、天气和待办事项等实用功能。
+一个功能丰富、现代化的个人导航仪表板应用，集成了时钟、搜索、书签、天气、待办事项和用户认证等实用功能。基于 React 19 + TypeScript + Express + SQLite 构建。
 
 ## ✨ 主要功能
 
@@ -9,14 +9,16 @@
 - 🔗 **链接管理** - 自定义书签网格，支持添加、编辑、删除常用网站
 - 🌤️ **天气组件** - 显示当前位置的天气信息
 - ✅ **待办事项** - 任务管理功能
+- 🔐 **用户认证** - 登录/注册系统
 - 🌍 **多语言支持** - 支持中文和英文切换
 - 💾 **数据持久化** - 使用 SQLite 数据库，localStorage 备份
+- 🛡️ **安全认证** - JWT 令牌认证
 
 ## 🛠️ 技术栈
 
 ### 前端
 - **React 19.2.0** - 现代化 React 框架
-- **TypeScript 5.8.3** - 类型安全的 JavaScript 超集
+- **TypeScript 5.9.3** - 类型安全的 JavaScript 超集
 - **Vite 7.2.4** - 快速的构建工具
 - **Tailwind CSS 4.1.18** - 实用优先的 CSS 框架
 - **i18next** - 国际化框架
@@ -26,11 +28,15 @@
 - **Express 5.2.1** - Node.js Web 框架
 - **better-sqlite3** - 同步 SQLite 数据库
 - **CORS** - 跨域资源共享支持
+- **jsonwebtoken** - JWT 认证
 
 ### 开发工具
 - **ESLint** - 代码质量检查
 - **PostCSS** - CSS 处理工具
 - **Docker** - 容器化部署支持
+
+### 安全
+- **bcryptjs** - 密码哈希加密
 
 ## 📁 项目结构
 
@@ -73,7 +79,7 @@ nav-dashboard/
 ### 环境要求
 
 - Node.js 18.0 或更高版本
-- npm 或 yarn 包管理器
+- npm 包管理器
 
 ### 安装
 
@@ -140,6 +146,23 @@ PORT=3001
 docker-compose up -d
 
 # 应用将在 http://localhost:3001 访问
+```
+
+## 🔐 用户认证
+
+### 登录/注册
+
+- 支持用户注册和登录
+- JWT 令牌认证
+- 密码哈希加密存储
+
+### API 认证
+
+```bash
+POST   /api/auth/register  # 用户注册
+POST   /api/auth/login    # 用户登录
+POST   /api/auth/logout   # 用户登出
+GET    /api/auth/profile  # 获取用户信息
 ```
 
 ## 🌐 API 接口
@@ -224,6 +247,16 @@ chmod 755 server/data
 ## 📄 许可证
 
 MIT License
+
+## 📦 版本信息
+
+- **版本**: 0.1.0
+- **构建时间**: 2026年1月22日
+- **最后更新**: 2026年1月22日
+
+## 🤝 贡献
+
+欢迎提交 Issue 和 Pull Request！请确保您的代码符合项目的编码规范。
 
 ## 🤝 贡献
 
