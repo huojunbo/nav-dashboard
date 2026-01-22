@@ -1,5 +1,5 @@
 import React, { useState, useEffect, FormEvent } from 'react';
-import { Plus, X, Edit2, Trash2, Globe } from 'lucide-react';
+import { Plus, Edit2, Trash2, Globe } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
 

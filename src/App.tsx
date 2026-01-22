@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Layout from './components/Layout';
 import ClockWidget from './components/ClockWidget';
 import SearchBar from './components/SearchBar';
@@ -7,7 +7,7 @@ import WeatherWidget from './components/WeatherWidget';
 import TodoWidget from './components/TodoWidget';
 import AuthForm from './components/AuthForm';
 
-import { AuthProvider, useAuth } from './context/AuthContext';
+import { useAuth } from './context/AuthContext';
 import LanguageSwitcher from './components/LanguageSwitcher';
 
 const Dashboard = () => (

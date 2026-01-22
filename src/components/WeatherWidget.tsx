@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CloudRain, Sun, Cloud, Snowflake, Wind, MapPin, AlertCircle, Droplets, Eye, Gauge } from 'lucide-react';
-import { useTranslation, TFunction } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
+import type { TFunction } from 'i18next';
 
 // WMO Weather codes to description
 const getWeatherDescription = (code: number, t: TFunction): string => {
@@ -64,12 +65,6 @@ const WeatherWidget = (): React.JSX.Element => {
   const [expanded, setExpanded] = useState(false);
 
   const [location, setLocation] = useState<Location>({ lat: null, lon: null });
-
-  // 规范化语言用于第三方API
-  const normalizeLang = (lang: string | undefined): string => {
-    if (!lang) return 'en';
-    return String(lang).split('-')[0];
-  };
 
   useEffect(() => {
     if (!navigator.geolocation) {
