@@ -1,9 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, FormEvent } from 'react';
 import { Search, ChevronDown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { createPortal } from 'react-dom';
 
-const SEARCH_ENGINES = {
+interface SearchEngine {
+  name: string;
+  url: string;
+  icon: string;
+  color: string;
+}
+
+interface SearchEngines {
+  [key: string]: SearchEngine;
+}
+
+const SEARCH_ENGINES: SearchEngines = {
     google: {
         name: 'Google',
         url: 'https://www.google.com/search?q=',
@@ -30,21 +41,21 @@ const SEARCH_ENGINES = {
     },
 };
 
-const SearchBar = () => {
+const SearchBar = (): React.JSX.Element => {
     const { t } = useTranslation();
-    const [query, setQuery] = useState('');
-    const [engine, setEngine] = useState(() => {
+    const [query, setQuery] = useState<string>('');
+    const [engine, setEngine] = useState<string>(() => {
         const saved = localStorage.getItem('search-engine');
         return saved && SEARCH_ENGINES[saved] ? saved : 'google';
     });
-    const [showEngineMenu, setShowEngineMenu] = useState(false);
-    const buttonRef = useRef(null);
-    const containerRef = useRef(null);
-    const [menuPos, setMenuPos] = useState({ top: 0, left: 0 });
+    const [showEngineMenu, setShowEngineMenu] = useState<boolean>(false);
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [menuPos, setMenuPos] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
 
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (containerRef.current && !containerRef.current.contains(event.target)) {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
                 setShowEngineMenu(false);
             }
         };
@@ -78,14 +89,14 @@ const SearchBar = () => {
         };
     }, [showEngineMenu]);
 
-    const handleSearch = (e) => {
+    const handleSearch = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!query.trim()) return;
         const url = SEARCH_ENGINES[engine].url + encodeURIComponent(query);
         window.location.href = url;
     };
 
-    const selectEngine = (engineKey) => {
+    const selectEngine = (engineKey: string) => {
         setEngine(engineKey);
         localStorage.setItem('search-engine', engineKey);
         setShowEngineMenu(false);

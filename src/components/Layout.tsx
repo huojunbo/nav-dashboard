@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import LanguageSwitcher from './LanguageSwitcher';
 
-const Layout = ({ children }) => {
+interface LayoutProps {
+  children: ReactNode;
+}
+
+const Layout = ({ children }: LayoutProps): React.JSX.Element => {
     return (
         <div className="min-h-screen bg-slate-900 text-white flex flex-col items-center py-10 px-4 sm:px-8 transition-colors duration-500">
             <div className="w-full max-w-5xl space-y-8">

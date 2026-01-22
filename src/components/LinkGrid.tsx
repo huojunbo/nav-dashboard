@@ -1,8 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 import { Plus, X, Edit2, Trash2, Globe } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-const DEFAULT_LINKS = [
+interface Link {
+  id: string;
+  name: string;
+  url: string;
+}
+
+interface LinkModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSave: (data: { name: string; url: string }) => void;
+  initialData?: Link | null;
+}
+
+const DEFAULT_LINKS: Link[] = [
     { id: '1', name: 'GitHub', url: 'https://github.com' },
     { id: '2', name: 'YouTube', url: 'https://youtube.com' },
     { id: '3', name: 'Gmail', url: 'https://mail.google.com' },
@@ -11,19 +24,19 @@ const DEFAULT_LINKS = [
     { id: '6', name: 'Google Cloud', url: 'https://cloud.google.com' },
 ];
 
-const getFaviconUrl = (url) => {
+const getFaviconUrl = (url: string): string | null => {
     try {
         const domain = new URL(url).hostname;
         return `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
-    } catch (e) {
+    } catch {
         return null;
     }
 };
 
-const LinkModal = ({ isOpen, onClose, onSave, initialData }) => {
+const LinkModal = ({ isOpen, onClose, onSave, initialData }: LinkModalProps): React.JSX.Element | null => {
     const { t } = useTranslation();
-    const [name, setName] = useState('');
-    const [url, setUrl] = useState('');
+    const [name, setName] = useState<string>('');
+    const [url, setUrl] = useState<string>('');
 
     useEffect(() => {
         if (isOpen) {
@@ -32,7 +45,7 @@ const LinkModal = ({ isOpen, onClose, onSave, initialData }) => {
         }
     }, [isOpen, initialData]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         onSave({ name, url });
         onClose();
@@ -92,12 +105,12 @@ const LinkModal = ({ isOpen, onClose, onSave, initialData }) => {
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
-const LinkGrid = () => {
+const LinkGrid = (): React.JSX.Element => {
     const { t } = useTranslation();
-    const [links, setLinks] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [editingLink, setEditingLink] = useState(null);
+    const [links, setLinks] = useState<Link[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [editingLink, setEditingLink] = useState<Link | null>(null);
 
     // Fetch links from API
     useEffect(() => {
@@ -108,7 +121,7 @@ const LinkGrid = () => {
         try {
             const response = await fetch(`${API_BASE}/links`);
             if (!response.ok) throw new Error('Failed to fetch links');
-            const data = await response.json();
+            const data: Link[] = await response.json();
             setLinks(data);
         } catch (error) {
             console.error('Error fetching links:', error);
@@ -124,7 +137,7 @@ const LinkGrid = () => {
         }
     };
 
-    const handleSave = async (data) => {
+    const handleSave = async (data: { name: string; url: string }) => {
         try {
             if (editingLink) {
                 // Update existing link
@@ -134,7 +147,7 @@ const LinkGrid = () => {
                     body: JSON.stringify(data),
                 });
                 if (!response.ok) throw new Error('Failed to update link');
-                const updated = await response.json();
+                const updated: Link = await response.json();
                 setLinks(links.map(l => l.id === editingLink.id ? updated : l));
             } else {
                 // Create new link
@@ -144,7 +157,7 @@ const LinkGrid = () => {
                     body: JSON.stringify(data),
                 });
                 if (!response.ok) throw new Error('Failed to create link');
-                const created = await response.json();
+                const created: Link = await response.json();
                 setLinks([...links, created]);
             }
         } catch (error) {
@@ -152,7 +165,7 @@ const LinkGrid = () => {
         }
     };
 
-    const handleDelete = async (e, id) => {
+    const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
         e.preventDefault();
         e.stopPropagation();
         if (!window.confirm(t('links.deleteConfirm'))) return;
@@ -168,7 +181,7 @@ const LinkGrid = () => {
         }
     };
 
-    const handleEdit = (e, link) => {
+    const handleEdit = (e: React.MouseEvent<HTMLButtonElement>, link: Link) => {
         e.preventDefault();
         e.stopPropagation();
         setEditingLink(link);
@@ -198,7 +211,7 @@ const LinkGrid = () => {
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group relative flex flex-col items-center justify-center p-6 bg-white/5 border border-white/10 rounded-2xl 
+                        className="group relative flex flex-col items-center justify-center p-6 bg-white/5 border border-white/10 rounded-2xl
                        hover:bg-white/10 hover:scale-105 transition-all duration-300 cursor-pointer backdrop-blur-sm"
                     >
                         {/* Action Buttons (visible on hover) */}
@@ -221,12 +234,12 @@ const LinkGrid = () => {
 
                         <div className="mb-3 p-3 bg-white/5 rounded-2xl group-hover:bg-white/10 transition-colors shadow-inner overflow-hidden">
                             <img
-                                src={getFaviconUrl(link.url)}
+                                src={getFaviconUrl(link.url) || ''}
                                 alt={link.name}
                                 className="w-8 h-8 object-contain"
                                 onError={(e) => {
-                                    e.target.style.display = 'none';
-                                    e.target.nextSibling.style.display = 'block';
+                                    (e.target as HTMLImageElement).style.display = 'none';
+                                    ((e.target as HTMLImageElement).nextElementSibling as HTMLElement).style.display = 'block';
                                 }}
                             />
                             <Globe className="w-8 h-8 text-slate-400 hidden" />

@@ -16,6 +16,7 @@
 
 ### 前端
 - **React 19.2.0** - 现代化 React 框架
+- **TypeScript 5.8.3** - 类型安全的 JavaScript 超集
 - **Vite 7.2.4** - 快速的构建工具
 - **Tailwind CSS 4.1.18** - 实用优先的 CSS 框架
 - **i18next** - 国际化框架
@@ -37,20 +38,20 @@
 nav-dashboard/
 ├── src/                      # 前端源代码
 │   ├── components/           # React 组件
-│   │   ├── ClockWidget.jsx   # 时钟组件
-│   │   ├── SearchBar.jsx     # 搜索栏
-│   │   ├── LinkGrid.jsx      # 链接网格
-│   │   ├── WeatherWidget.jsx # 天气组件
-│   │   ├── TodoWidget.jsx    # 待办事项组件
-│   │   ├── Layout.jsx        # 布局组件
-│   │   └── LanguageSwitcher.jsx # 语言切换
+│   │   ├── ClockWidget.tsx   # 时钟组件
+│   │   ├── SearchBar.tsx     # 搜索栏
+│   │   ├── LinkGrid.tsx      # 链接网格
+│   │   ├── WeatherWidget.tsx # 天气组件
+│   │   ├── TodoWidget.tsx    # 待办事项组件
+│   │   ├── Layout.tsx        # 布局组件
+│   │   └── LanguageSwitcher.tsx # 语言切换
 │   ├── i18n/                 # 国际化配置
-│   │   ├── config.js         # i18n 配置
+│   │   ├── config.ts         # i18n 配置
 │   │   └── locales/          # 语言文件
 │   │       ├── en.json       # 英文翻译
 │   │       └── zh.json       # 中文翻译
-│   ├── App.jsx               # 主应用组件
-│   └── main.jsx              # 应用入口
+│   ├── App.tsx               # 主应用组件
+│   └── main.tsx              # 应用入口
 ├── server/                   # 后端服务器
 │   ├── index.js              # 服务器入口
 │   ├── database.js           # SQLite 数据库配置
@@ -62,6 +63,8 @@ nav-dashboard/
 ├── Dockerfile                # Docker 配置
 ├── docker-compose.yml        # Docker Compose 配置
 ├── DOCKER.md                 # Docker 部署文档
+├── tsconfig.json             # TypeScript 配置
+├── vite.config.ts            # Vite 配置
 └── package.json              # 项目依赖配置
 ```
 
@@ -172,8 +175,8 @@ GET    /api/health      # 服务健康状态
 ### 添加新语言
 
 1. 在 `src/i18n/locales/` 创建新的语言 JSON 文件
-2. 在 `src/i18n/config.js` 中添加语言配置
-3. 在 `LanguageSwitcher.jsx` 中添加语言切换选项
+2. 在 `src/i18n/config.ts` 中添加语言配置
+3. 在 `LanguageSwitcher.tsx` 中添加语言切换选项
 
 ## 💾 数据存储
 
@@ -185,9 +188,9 @@ GET    /api/health      # 服务健康状态
 
 ### 修改默认链接
 
-编辑 `src/components/LinkGrid.jsx` 中的 `DEFAULT_LINKS` 数组：
+编辑 `src/components/LinkGrid.tsx` 中的 `DEFAULT_LINKS` 数组：
 
-```javascript
+```typescript
 const DEFAULT_LINKS = [
     { id: '1', name: 'GitHub', url: 'https://github.com' },
     { id: '2', name: 'YouTube', url: 'https://youtube.com' },
@@ -197,7 +200,7 @@ const DEFAULT_LINKS = [
 
 ### 修改主题颜色
 
-编辑 `tailwind.config.js` 配置文件自定义主题。
+编辑 `vite.config.ts` 配置文件自定义主题。
 
 ## 🐛 故障排除
 

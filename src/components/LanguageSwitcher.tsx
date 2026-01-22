@@ -2,12 +2,12 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Languages } from 'lucide-react';
 
-const LanguageSwitcher = () => {
+const LanguageSwitcher = (): React.JSX.Element => {
     const { i18n, t } = useTranslation();
 
     const currentLang = i18n.language;
 
-    const toggleLanguage = () => {
+    const toggleLanguage = (): void => {
         const newLang = currentLang === 'zh' ? 'en' : 'zh';
         i18n.changeLanguage(newLang);
     };

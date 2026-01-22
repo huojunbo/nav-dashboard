@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
-const ClockWidget = () => {
-    const [time, setTime] = useState(new Date());
+const ClockWidget = (): React.JSX.Element => {
+    const [time, setTime] = useState<Date>(new Date());
 
     useEffect(() => {
         const timer = setInterval(() => setTime(new Date()), 1000);
         return () => clearInterval(timer);
     }, []);
 
-    const formatTime = (date) => {
+    const formatTime = (date: Date): string => {
         return date.toLocaleTimeString('en-US', {
             hour: '2-digit',
             minute: '2-digit',
@@ -16,7 +16,7 @@ const ClockWidget = () => {
         });
     };
 
-    const formatDate = (date) => {
+    const formatDate = (date: Date): string => {
         return date.toLocaleDateString('en-US', {
             weekday: 'long',
             month: 'long',
