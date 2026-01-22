@@ -3,6 +3,7 @@ import cors from 'cors';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import db from './database.js';
+import { verifyToken } from './middleware/auth.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -29,9 +30,11 @@ app.use((req, res, next) => {
 // Routes
 import linksRouter from './routes/links.js';
 import todosRouter from './routes/todos.js';
+import authRouter from './routes/auth.js';
 
-app.use('/api/links', linksRouter);
-app.use('/api/todos', todosRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/links', verifyToken, linksRouter);
+app.use('/api/todos', verifyToken, todosRouter);
 
 // Health check
 app.get('/api/health', (req, res) => {

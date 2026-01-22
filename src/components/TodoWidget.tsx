@@ -10,20 +10,35 @@ interface Todo {
   completed: boolean;
 }
 
+import { useAuth } from '../context/AuthContext';
+
 const TodoWidget = (): React.JSX.Element => {
   const { t } = useTranslation();
+  const { token, logout } = useAuth();
   const [todos, setTodos] = useState<Todo[]>([]);
   const [loading, setLoading] = useState(true);
   const [input, setInput] = useState('');
 
   // Fetch todos from API
   useEffect(() => {
-    fetchTodos();
-  }, []);
+    if (token) fetchTodos();
+  }, [token]);
+
+  const getAuthHeaders = (): Record<string, string> => {
+    return token ? { 'Authorization': `Bearer ${token}` } : {};
+  };
 
   const fetchTodos = async (): Promise<void> => {
     try {
-      const response = await fetch(`${API_BASE}/todos`);
+      const response = await fetch(`${API_BASE}/todos`, {
+        headers: getAuthHeaders()
+      });
+
+      if (response.status === 401) {
+        logout();
+        return;
+      }
+
       if (!response.ok) throw new Error('Failed to fetch todos');
       const data = await response.json();
       setTodos(data);
@@ -46,7 +61,10 @@ const TodoWidget = (): React.JSX.Element => {
     try {
       const response = await fetch(`${API_BASE}/todos`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            ...getAuthHeaders()
+        },
         body: JSON.stringify({ text: input, completed: false }),
       });
       if (!response.ok) throw new Error('Failed to create todo');
@@ -65,7 +83,10 @@ const TodoWidget = (): React.JSX.Element => {
     try {
       const response = await fetch(`${API_BASE}/todos/${id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            ...getAuthHeaders()
+        },
         body: JSON.stringify({ completed: !todo.completed }),
       });
       if (!response.ok) throw new Error('Failed to update todo');
@@ -80,6 +101,7 @@ const TodoWidget = (): React.JSX.Element => {
     try {
       const response = await fetch(`${API_BASE}/todos/${id}`, {
         method: 'DELETE',
+        headers: getAuthHeaders()
       });
       if (!response.ok) throw new Error('Failed to delete todo');
       setTodos(todos.filter(t => t.id !== id));

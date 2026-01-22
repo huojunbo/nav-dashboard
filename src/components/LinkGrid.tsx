@@ -1,18 +1,21 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 import { Plus, X, Edit2, Trash2, Globe } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useAuth } from '../context/AuthContext';
+
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
 interface Link {
-  id: string;
-  name: string;
-  url: string;
+    id: string;
+    name: string;
+    url: string;
 }
 
 interface LinkModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onSave: (data: { name: string; url: string }) => void;
-  initialData?: Link | null;
+    isOpen: boolean;
+    onClose: () => void;
+    onSave: (data: { name: string; url: string }) => void;
+    initialData?: Link | null;
 }
 
 const DEFAULT_LINKS: Link[] = [
@@ -103,10 +106,9 @@ const LinkModal = ({ isOpen, onClose, onSave, initialData }: LinkModalProps): Re
     );
 };
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
-
 const LinkGrid = (): React.JSX.Element => {
     const { t } = useTranslation();
+    const { token, logout } = useAuth();
     const [links, setLinks] = useState<Link[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -114,12 +116,22 @@ const LinkGrid = (): React.JSX.Element => {
 
     // Fetch links from API
     useEffect(() => {
-        fetchLinks();
-    }, []);
+        if (token) fetchLinks();
+    }, [token]);
+
+    const getAuthHeaders = (): Record<string, string> => {
+        return token ? { 'Authorization': `Bearer ${token}` } : {};
+    };
 
     const fetchLinks = async () => {
         try {
-            const response = await fetch(`${API_BASE}/links`);
+            const response = await fetch(`${API_BASE}/links`, {
+                headers: getAuthHeaders()
+            });
+            if (response.status === 401) {
+                logout();
+                return;
+            }
             if (!response.ok) throw new Error('Failed to fetch links');
             const data: Link[] = await response.json();
             setLinks(data);
@@ -139,11 +151,16 @@ const LinkGrid = (): React.JSX.Element => {
 
     const handleSave = async (data: { name: string; url: string }) => {
         try {
+            const headers = {
+                'Content-Type': 'application/json',
+                ...getAuthHeaders()
+            };
+
             if (editingLink) {
                 // Update existing link
                 const response = await fetch(`${API_BASE}/links/${editingLink.id}`, {
                     method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers,
                     body: JSON.stringify(data),
                 });
                 if (!response.ok) throw new Error('Failed to update link');
@@ -153,7 +170,7 @@ const LinkGrid = (): React.JSX.Element => {
                 // Create new link
                 const response = await fetch(`${API_BASE}/links`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers,
                     body: JSON.stringify(data),
                 });
                 if (!response.ok) throw new Error('Failed to create link');
@@ -173,6 +190,7 @@ const LinkGrid = (): React.JSX.Element => {
         try {
             const response = await fetch(`${API_BASE}/links/${id}`, {
                 method: 'DELETE',
+                headers: getAuthHeaders()
             });
             if (!response.ok) throw new Error('Failed to delete link');
             setLinks(links.filter(l => l.id !== id));

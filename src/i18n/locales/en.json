@@ -1,4 +1,26 @@
 {
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "loginTitle": "Login to Dashboard",
+    "registerTitle": "Create New Account",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "usernamePlaceholder": "Enter username",
+    "emailPlaceholder": "Enter email address",
+    "passwordPlaceholder": "Enter password",
+    "loginSuccess": "Login successful",
+    "registerSuccess": "Registration successful",
+    "passwordsNotMatch": "Passwords do not match",
+    "usernameRequired": "Username is required",
+    "emailRequired": "Email is required",
+    "passwordRequired": "Password is required"
+  },
   "common": {
     "loading": "Loading...",
     "add": "Add",

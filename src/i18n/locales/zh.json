@@ -1,4 +1,26 @@
 {
+  "auth": {
+    "login": "登录",
+    "register": "注册",
+    "logout": "退出登录",
+    "username": "用户名",
+    "email": "邮箱",
+    "password": "密码",
+    "confirmPassword": "确认密码",
+    "loginTitle": "登录到仪表板",
+    "registerTitle": "创建新账户",
+    "noAccount": "还没有账户？",
+    "haveAccount": "已有账户？",
+    "usernamePlaceholder": "输入用户名",
+    "emailPlaceholder": "输入邮箱地址",
+    "passwordPlaceholder": "输入密码",
+    "loginSuccess": "登录成功",
+    "registerSuccess": "注册成功",
+    "passwordsNotMatch": "密码不匹配",
+    "usernameRequired": "请输入用户名",
+    "emailRequired": "请输入邮箱",
+    "passwordRequired": "请输入密码"
+  },
   "common": {
     "loading": "加载中...",
     "add": "添加",
