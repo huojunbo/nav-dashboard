@@ -195,11 +195,25 @@ GET    /api/health      # 服务健康状态
 
 应用支持中英文切换，语言文件位于 `src/i18n/locales/` 目录。
 
+### 语言切换
+
+用户可以通过界面右上角的语言切换器在中文和英文之间切换。
+
 ### 添加新语言
 
 1. 在 `src/i18n/locales/` 创建新的语言 JSON 文件
 2. 在 `src/i18n/config.ts` 中添加语言配置
 3. 在 `LanguageSwitcher.tsx` 中添加语言切换选项
+
+### 示例
+
+```typescript
+// 在 LanguageSwitcher.tsx 中
+const languages = [
+  { code: 'zh', name: '中文' },
+  { code: 'en', name: 'English' }
+];
+```
 
 ## 💾 数据存储
 
