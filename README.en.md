@@ -1,7 +1,7 @@
 # Navigation Dashboard
 
 A feature-rich, modern personal navigation dashboard application that integrates clock, search, bookmarks, weather, todos, and user authentication. Built with React 19 + TypeScript + Express + SQLite.
-
+[中文](./README.md)
 ## ✨ Main Features
 
 - 🕐 **Clock Widget** - Real-time clock display
@@ -278,4 +278,3 @@ For questions or suggestions, please contact via Issue.
 
 ---
 
-[中文 README](./README.md)
